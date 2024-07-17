@@ -1,6 +1,7 @@
 package com.example.demo.model;
 
 import jakarta.persistence.*;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import java.util.List;
 
 @Entity
@@ -10,7 +11,12 @@ public class Level {
     private Long id;
     private String name;
 
-    @OneToMany(mappedBy = "niveau")  // Assurez-vous que le mappedBy correspond à l'attribut dans la classe Question
+    @ManyToOne
+    @JoinColumn(name = "theme_id")
+    @JsonBackReference
+    private Theme theme;
+
+    @OneToMany(mappedBy = "niveau") // Assurez-vous que le mappedBy correspond à l'attribut dans la classe Question
     private List<Question> questions;
 
     // getters and setters
@@ -28,6 +34,14 @@ public class Level {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public Theme getTheme() {
+        return theme;
+    }
+
+    public void setTheme(Theme theme) {
+        this.theme = theme;
     }
 
     public List<Question> getQuestions() {

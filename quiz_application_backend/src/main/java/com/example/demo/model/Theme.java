@@ -1,6 +1,7 @@
 package com.example.demo.model;
 
 import jakarta.persistence.*;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -11,8 +12,13 @@ public class Theme {
     private Long id;
     private String name;
 
-    @ManyToMany(mappedBy = "themes")
-    private List<Question> questions = new ArrayList<>();
+    @OneToMany(mappedBy = "theme")
+    @JsonManagedReference
+    private List<Role> roles = new ArrayList<>();
+
+    @OneToMany(mappedBy = "theme")
+    @JsonManagedReference
+    private List<Level> levels;
 
     // getters and setters
     public Long getId() {
@@ -31,16 +37,19 @@ public class Theme {
         this.name = name;
     }
 
-    public List<Question> getQuestions() {
-        return questions;
+    public List<Role> getRoles() {
+        return roles;
     }
 
-    public void setQuestions(List<Question> questions) {
-        this.questions = questions;
+    public void setRoles(List<Role> roles) {
+        this.roles = roles;
     }
 
-    public void addQuestion(Question question) {
-        questions.add(question);
-        question.getThemes().add(this); // Assurez-vous d'ajouter le thème à la question également
+    public List<Level> getLevels() {
+        return levels;
+    }
+
+    public void setLevels(List<Level> levels) {
+        this.levels = levels;
     }
 }
