@@ -9,6 +9,7 @@ public class Level {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
     private String name;
 
     @ManyToOne
@@ -16,10 +17,10 @@ public class Level {
     @JsonBackReference
     private Theme theme;
 
-    @OneToMany(mappedBy = "niveau") // Assurez-vous que le mappedBy correspond à l'attribut dans la classe Question
-    private List<Question> questions;
+    @OneToMany(mappedBy = "level")
+    private List<Test> tests;
 
-    // getters and setters
+    // Getters and Setters
     public Long getId() {
         return id;
     }
@@ -44,11 +45,11 @@ public class Level {
         this.theme = theme;
     }
 
-    public List<Question> getQuestions() {
-        return questions;
+    public List<Test> getTests() {
+        return tests;
     }
 
-    public void setQuestions(List<Question> questions) {
-        this.questions = questions;
+    public void setTests(List<Test> tests) {
+        this.tests = tests;
     }
 }

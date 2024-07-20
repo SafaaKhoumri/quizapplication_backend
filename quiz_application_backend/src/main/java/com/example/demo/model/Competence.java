@@ -5,7 +5,7 @@ import com.fasterxml.jackson.annotation.JsonBackReference;
 import java.util.List;
 
 @Entity
-public class Role {
+public class Competence {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -17,7 +17,17 @@ public class Role {
     @JsonBackReference
     private Theme theme;
 
-    @OneToMany(mappedBy = "role")
+    @ManyToOne
+    @JoinColumn(name = "role_id")
+    @JsonBackReference
+    private Role role;
+
+    @ManyToOne
+    @JoinColumn(name = "level_id")
+    @JsonBackReference
+    private Level level;
+
+    @ManyToMany(mappedBy = "competences")
     private List<Test> tests;
 
     // Getters and Setters
@@ -43,6 +53,22 @@ public class Role {
 
     public void setTheme(Theme theme) {
         this.theme = theme;
+    }
+
+    public Role getRole() {
+        return role;
+    }
+
+    public void setRole(Role role) {
+        this.role = role;
+    }
+
+    public Level getLevel() {
+        return level;
+    }
+
+    public void setLevel(Level level) {
+        this.level = level;
     }
 
     public List<Test> getTests() {

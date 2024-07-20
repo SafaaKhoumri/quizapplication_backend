@@ -10,6 +10,7 @@ public class Theme {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
     private String name;
 
     @OneToMany(mappedBy = "theme")
@@ -20,7 +21,11 @@ public class Theme {
     @JsonManagedReference
     private List<Level> levels;
 
-    // getters and setters
+    @OneToMany(mappedBy = "theme")
+    @JsonManagedReference
+    private List<Competence> competences;
+
+    // Getters and Setters
     public Long getId() {
         return id;
     }
@@ -51,5 +56,13 @@ public class Theme {
 
     public void setLevels(List<Level> levels) {
         this.levels = levels;
+    }
+
+    public List<Competence> getCompetences() {
+        return competences;
+    }
+
+    public void setCompetences(List<Competence> competences) {
+        this.competences = competences;
     }
 }
