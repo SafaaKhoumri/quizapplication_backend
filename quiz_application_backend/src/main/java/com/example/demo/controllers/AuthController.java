@@ -10,14 +10,17 @@ import org.springframework.web.bind.annotation.RestController;
 import com.example.demo.model.Administrateur;
 import com.example.demo.services.UserService;
 
+import org.springframework.web.bind.annotation.RequestMapping;
+
 @RestController
-@CrossOrigin(origins = "http://localhost:3000") // Ajoutez votre domaine front-end ici
+@RequestMapping("/api")
+@CrossOrigin(origins = "http://localhost:3000")
 public class AuthController {
 
     @Autowired
     private UserService userService;
 
-    @PostMapping(value = "/api/login", consumes = "application/json")
+    @PostMapping("/login")
     public ResponseEntity<String> login(@RequestBody Administrateur user) {
         if (userService.authenticate(user.getEmail(), user.getPassword())) {
             return ResponseEntity.ok("Login successful!");
